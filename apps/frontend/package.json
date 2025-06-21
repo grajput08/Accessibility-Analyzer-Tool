@@ -1,0 +1,28 @@
+{
+  "name": "@accessibility-analyzer/frontend",
+  "version": "1.0.0",
+  "description": "NuxtJS frontend for Accessibility Analyzer Tool",
+  "private": true,
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
+  },
+  "devDependencies": {
+    "@nuxt/devtools": "latest",
+    "@nuxt/eslint-config": "^0.2.0",
+    "@nuxtjs/tailwindcss": "^6.10.0",
+    "@types/node": "^20.0.0",
+    "eslint": "^8.57.0",
+    "nuxt": "^3.9.0",
+    "sass": "^1.69.0"
+  },
+  "dependencies": {
+    "@pinia/nuxt": "^0.5.1",
+    "pinia": "^2.1.7"
+  }
+}
