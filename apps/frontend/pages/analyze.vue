@@ -193,9 +193,9 @@
 </template>
 
 <script setup>
-const url = ref("");
-const analysisLevel = ref("comprehensive");
-const wcagVersion = ref("2.1");
+const url = ref('');
+const analysisLevel = ref('comprehensive');
+const wcagVersion = ref('2.1');
 const isAnalyzing = ref(false);
 const analysisResults = ref(null);
 
@@ -219,32 +219,32 @@ const analyzeWebsite = async () => {
       issues: [
         {
           id: 1,
-          title: "Missing alt text on images",
+          title: 'Missing alt text on images',
           description:
-            "Several images on the page are missing alt text, which is essential for screen readers.",
-          severity: "error",
-          wcagCriteria: "1.1.1",
+            'Several images on the page are missing alt text, which is essential for screen readers.',
+          severity: 'error',
+          wcagCriteria: '1.1.1',
         },
         {
           id: 2,
-          title: "Insufficient color contrast",
+          title: 'Insufficient color contrast',
           description:
-            "Text color contrast ratio does not meet WCAG AA standards.",
-          severity: "error",
-          wcagCriteria: "1.4.3",
+            'Text color contrast ratio does not meet WCAG AA standards.',
+          severity: 'error',
+          wcagCriteria: '1.4.3',
         },
         {
           id: 3,
-          title: "Missing heading structure",
+          title: 'Missing heading structure',
           description:
-            "Page heading structure could be improved for better navigation.",
-          severity: "warning",
-          wcagCriteria: "1.3.1",
+            'Page heading structure could be improved for better navigation.',
+          severity: 'warning',
+          wcagCriteria: '1.3.1',
         },
       ],
     };
   } catch (error) {
-    console.error("Analysis failed:", error);
+    console.error('Analysis failed:', error);
     // Handle error appropriately
   } finally {
     isAnalyzing.value = false;
@@ -252,9 +252,9 @@ const analyzeWebsite = async () => {
 };
 
 const resetForm = () => {
-  url.value = "";
-  analysisLevel.value = "comprehensive";
-  wcagVersion.value = "2.1";
+  url.value = '';
+  analysisLevel.value = 'comprehensive';
+  wcagVersion.value = '2.1';
   analysisResults.value = null;
 };
 </script>
