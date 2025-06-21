@@ -98,26 +98,6 @@ Analyzes a given URL for accessibility issues using Pa11y.
 }
 ```
 
-### 3. Alternative Endpoint (Backward Compatibility)
-
-**POST** `/accessibility-check`
-
-Same functionality as `/analyse` but returns results in a different format for backward compatibility.
-
-**Response:**
-
-```json
-{
-  "results": {
-    "documentTitle": "Example Domain",
-    "pageUrl": "https://example.com",
-    "issues": [...],
-    "standards": {...},
-    "timestamp": "2024-01-15T10:30:00.000Z"
-  }
-}
-```
-
 ## Usage Examples
 
 ### Basic Analysis

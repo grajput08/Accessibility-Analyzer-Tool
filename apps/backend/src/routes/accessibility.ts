@@ -37,28 +37,4 @@ router.post('/analyse', async (req: Request, res: Response) => {
   }
 });
 
-// Alternative endpoint name for backward compatibility
-router.post('/accessibility-check', async (req: Request, res: Response) => {
-  try {
-    // Validate request
-    const validatedRequest = AccessibilityService.validateRequest(req.body);
-
-    // Perform accessibility analysis
-    const results = await AccessibilityService.analyzeUrl(validatedRequest);
-
-    return res.status(200).json({ results });
-  } catch (error) {
-    console.error('Accessibility analysis error:', error);
-
-    const errorResponse: ErrorResponse = {
-      error: 'Accessibility analysis failed',
-      message:
-        error instanceof Error ? error.message : 'Unknown error occurred',
-      timestamp: new Date().toISOString(),
-    };
-
-    return res.status(400).json(errorResponse);
-  }
-});
-
 export default router;
