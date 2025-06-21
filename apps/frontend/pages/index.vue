@@ -33,14 +33,6 @@
                 ></path>
               </svg>
             </NuxtLink>
-            <button
-              @click="testBackendConnection"
-              class="btn-secondary inline-flex items-center justify-center"
-              :disabled="isTesting"
-            >
-              <span v-if="isTesting">Testing...</span>
-              <span v-else>Test Backend</span>
-            </button>
           </div>
         </div>
       </div>
@@ -150,45 +142,9 @@
         </div>
       </div>
     </section>
-
-    <!-- Backend Status -->
-    <div v-if="backendStatus" class="fixed bottom-4 right-4">
-      <div
-        :class="[
-          'px-4 py-2 rounded-lg shadow-lg text-white text-sm',
-          backendStatus.success ? 'bg-green-500' : 'bg-red-500',
-        ]"
-      >
-        {{ backendStatus.message }}
-      </div>
-    </div>
   </div>
 </template>
 
 <script setup>
 const config = useRuntimeConfig();
-const isTesting = ref(false);
-const backendStatus = ref(null);
-
-const testBackendConnection = async () => {
-  isTesting.value = true;
-  try {
-    const response = await $fetch(`${config.public.apiBaseUrl}/`);
-    backendStatus.value = {
-      success: true,
-      message: '✅ Backend connected successfully!',
-    };
-  } catch (error) {
-    backendStatus.value = {
-      success: false,
-      message: '❌ Backend connection failed',
-    };
-  } finally {
-    isTesting.value = false;
-    // Clear status after 3 seconds
-    setTimeout(() => {
-      backendStatus.value = null;
-    }, 3000);
-  }
-};
 </script>
