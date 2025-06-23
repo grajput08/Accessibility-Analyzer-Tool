@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "pnpm --parallel dev",
     "build": "pnpm --recursive build",
+    "vercel-build": "pnpm build",
     "start": "pnpm --recursive start",
     "lint": "pnpm --recursive lint",
     "test": "pnpm --recursive test"

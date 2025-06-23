@@ -9,6 +9,7 @@ A comprehensive web accessibility analysis tool built with NuxtJS frontend and E
 - **Monorepo**: Organized with pnpm workspaces for efficient development
 - **Accessibility**: Built with accessibility best practices in mind
 - **Modern UI**: Beautiful, responsive design with custom animations
+- **Deployment Ready**: Configured for easy deployment on Vercel
 
 ## 📁 Project Structure
 
@@ -24,8 +25,12 @@ accessibility-analyzer-tool/
 │   └── backend/           # Express.js API
 │       ├── src/
 │       └── package.json
+├── api/
+│   └── index.ts          # Vercel serverless function handler
 ├── package.json           # Root package.json
-└── pnpm-workspace.yaml    # Workspace configuration
+├── pnpm-workspace.yaml    # Workspace configuration
+├── vercel.json           # Vercel deployment configuration
+└── deploy.sh             # Deployment script
 ```
 
 ## 🛠️ Prerequisites
@@ -145,3 +150,52 @@ This project is licensed under the MIT License.
 ## 🤝 Support
 
 For support and questions, please open an issue in the repository.
+
+## 🚀 Deployment
+
+### Deploy to Vercel
+
+This project is configured for easy deployment on Vercel with both frontend and backend support.
+
+#### Quick Deploy
+
+1. **Install Vercel CLI** (optional)
+
+   ```bash
+   npm i -g vercel
+   ```
+
+2. **Deploy using the script**
+
+   ```bash
+   ./deploy.sh
+   ```
+
+3. **Or deploy manually**
+   ```bash
+   pnpm build
+   vercel
+   ```
+
+#### Manual Deployment Steps
+
+1. Push your code to GitHub, GitLab, or Bitbucket
+2. Go to [vercel.com](https://vercel.com) and create a new project
+3. Import your repository
+4. Vercel will automatically detect the configuration and deploy
+
+#### Deployment URLs
+
+After deployment, your application will be available at:
+
+- **Frontend**: `https://your-project.vercel.app`
+- **Backend API**: `https://your-project.vercel.app/api`
+
+#### Environment Variables
+
+Set these in your Vercel project settings if needed:
+
+- `API_BASE_URL`: Your API base URL (auto-detected in production)
+- `NODE_ENV`: Set to `production`
+
+For detailed deployment instructions, see [DEPLOYMENT.md](./DEPLOYMENT.md).
