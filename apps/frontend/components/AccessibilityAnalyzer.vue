@@ -35,7 +35,6 @@
               <option value="WCAG2A">WCAG 2.0 Level A</option>
               <option value="WCAG2AA">WCAG 2.0 Level AA</option>
               <option value="WCAG2AAA">WCAG 2.0 Level AAA</option>
-              <option value="Section508">Section 508</option>
             </select>
           </div>
 
@@ -118,6 +117,27 @@
     <!-- Results Display -->
     <div v-if="store.isAnalysisComplete && store.results" class="card">
       <h3 class="text-xl font-bold text-gray-900 mb-4">Analysis Results</h3>
+
+      <!-- AIM Score -->
+      <div
+        class="mb-6 p-6 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg border-2 border-blue-200"
+      >
+        <div class="flex items-center justify-between">
+          <div>
+            <h4 class="text-lg font-semibold text-gray-900 mb-1">AIM Score</h4>
+            <p class="text-sm text-gray-600">Accessibility Impact Metric</p>
+          </div>
+          <div class="text-right">
+            <div
+              class="text-4xl font-bold"
+              :class="getAimScoreColor(store.results.aimScore)"
+            >
+              {{ store.results.aimScore }}
+            </div>
+            <div class="text-sm text-gray-600 mt-1">out of 10</div>
+          </div>
+        </div>
+      </div>
 
       <!-- Summary -->
       <div class="grid md:grid-cols-4 gap-4 mb-6">
@@ -346,7 +366,7 @@ const formData = ref({
   url: '',
   standard: 'WCAG2AA',
   includeWarnings: true,
-  includeNotices: true,
+  includeNotices: false,
 });
 
 const activeTab = ref('error');
@@ -405,6 +425,14 @@ const copyToClipboard = async (text, index) => {
   } catch (err) {
     console.error('Failed to copy: ', err);
   }
+};
+
+// Get AIM score color based on score value
+const getAimScoreColor = (score) => {
+  if (score >= 8) return 'text-green-600';
+  if (score >= 6) return 'text-yellow-600';
+  if (score >= 4) return 'text-orange-600';
+  return 'text-red-600';
 };
 
 // Set initial active tab when results change

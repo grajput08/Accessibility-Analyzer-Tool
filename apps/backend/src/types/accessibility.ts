@@ -33,6 +33,7 @@ export interface AccessibilityAnalysisResponse {
       notices: number;
     };
   };
+  aimScore: number;
   timestamp: string;
 }
 
