@@ -128,20 +128,57 @@ Provide the response in the following JSON format:
   "youtubeVideoLinks": [
     {
       "title": "Video title",
-      "url": "Full YouTube URL (must be a real, accessible YouTube video)",
+      "url": "Full YouTube URL starting with https://www.youtube.com/watch?v=, https://youtu.be/, or https://www.youtube.com/playlist?list= (must be a real, accessible YouTube video or playlist)",
       "description": "Brief description of what the video teaches"
     }
   ]
 }
 
 IMPORTANT REQUIREMENTS:
-- Provide 2-4 high-quality article links from reputable sources (MDN Web Docs, WebAIM, W3C WAI, The A11Y Project, A11y Wins, etc.)
-- Provide 1-3 relevant YouTube video links that are actually available and educational
+- Provide 1-2 high-quality article links from reputable sources (MDN Web Docs, WebAIM, W3C WAI, A11y Wins, etc.)
+- DO NOT include articles from https://www.a11yproject.com/ - exclude this domain from recommendations
 - All URLs must be real and accessible (do not make up URLs)
+- YouTube URLs must be in the format: https://www.youtube.com/watch?v=VIDEO_ID or https://youtu.be/VIDEO_ID
+- YouTube playlist URLs are also acceptable: https://www.youtube.com/playlist?list=PLAYLIST_ID
+- All URLs must start with http:// or https://
+- Highly recommended article resources (prioritize these when relevant):
+  * https://www.w3.org/WAI/ARIA/apg/ - ARIA Authoring Practices Guide (excellent for ARIA patterns and widgets)
+- Suggested YouTube videos for accessibility education (use when relevant):
+  * https://www.youtube.com/watch?v=pIvX0J6_3GU
+  * https://www.youtube.com/watch?v=UaRAXFT_rwk
+  * https://www.youtube.com/watch?v=RjpvOqZigao
+  * https://www.youtube.com/watch?v=NEK3aMPs1Us
+  * https://www.youtube.com/watch?v=e2nkq3h1P68
+  * https://www.youtube.com/playlist?list=PLsvet3tE97XcMTCT6U_tZKkGYIn0qeRuD
+  * https://www.youtube.com/playlist?list=PLsvet3tE97XetxAvwTeG8ttKggrbG6Tm1
 - Focus on educational content that helps developers learn and understand
 - Make the content practical and actionable
 - Use clear, developer-friendly language
 - Ensure all JSON is valid and properly formatted`;
+  }
+
+  /**
+   * Validate and normalize YouTube URL
+   */
+  private static isValidYouTubeUrl(url: string): boolean {
+    if (!url || typeof url !== 'string') return false;
+
+    // Must start with http:// or https://
+    if (!url.startsWith('http://') && !url.startsWith('https://')) {
+      return false;
+    }
+
+    // Check for YouTube domain patterns (including playlists and UTM parameters)
+    const youtubePatterns = [
+      /^https?:\/\/(www\.)?youtube\.com\/watch\?v=[\w-]+/i, // Standard watch URL
+      /^https?:\/\/(www\.)?youtube\.com\/watch\?v=[\w-]+(&.*)?$/i, // With additional parameters (UTM, etc.)
+      /^https?:\/\/(www\.)?youtube\.com\/embed\/[\w-]+/i, // Embed URL
+      /^https?:\/\/youtu\.be\/[\w-]+/i, // Short URL
+      /^https?:\/\/(www\.)?youtube\.com\/v\/[\w-]+/i, // Old format
+      /^https?:\/\/(www\.)?youtube\.com\/playlist\?list=[\w-]+/i, // Playlist URL
+    ];
+
+    return youtubePatterns.some(pattern => pattern.test(url));
   }
 
   /**
@@ -159,7 +196,8 @@ IMPORTANT REQUIREMENTS:
               link.title &&
               link.url &&
               (link.url.startsWith('http://') ||
-                link.url.startsWith('https://'))
+                link.url.startsWith('https://')) &&
+              !link.url.includes('a11yproject.com') // Exclude a11yproject.com
           )
         : [],
       youtubeVideoLinks: Array.isArray(parsed.youtubeVideoLinks)
@@ -168,8 +206,7 @@ IMPORTANT REQUIREMENTS:
               video &&
               video.title &&
               video.url &&
-              (video.url.includes('youtube.com') ||
-                video.url.includes('youtu.be'))
+              this.isValidYouTubeUrl(video.url)
           )
         : [],
     };
