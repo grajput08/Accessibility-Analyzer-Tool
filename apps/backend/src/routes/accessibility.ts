@@ -1,6 +1,7 @@
 import { Router, Request, Response } from 'express';
 import { AccessibilityService } from '../services/accessibilityService';
 import { AIExplanationService } from '../services/aiExplanationService';
+import { LearningModeService } from '../services/learningModeService';
 import {
   ErrorResponse,
   IssueExplanationRequest,
@@ -71,6 +72,83 @@ router.post('/explain-issue', async (req: Request, res: Response) => {
 
     const errorResponse: ErrorResponse = {
       error: 'Issue explanation failed',
+      message:
+        error instanceof Error ? error.message : 'Unknown error occurred',
+      timestamp: new Date().toISOString(),
+    };
+
+    return res.status(500).json(errorResponse);
+  }
+});
+
+// Get learning mode content for an issue
+// Supports both GET (static content) and POST (AI-generated content)
+router.get('/learning/:code', (req: Request, res: Response) => {
+  try {
+    const code = req.params.code;
+
+    if (!code) {
+      return res.status(400).json({
+        error: 'Missing required parameter',
+        message: 'Issue code is required',
+        timestamp: new Date().toISOString(),
+      });
+    }
+
+    const learningContent = LearningModeService.getLearningContent(code);
+
+    if (!learningContent) {
+      return res.status(404).json({
+        error: 'Learning content not found',
+        message: `No learning content available for issue code: ${code}`,
+        timestamp: new Date().toISOString(),
+      });
+    }
+
+    return res.status(200).json(learningContent);
+  } catch (error) {
+    console.error('Learning mode error:', error);
+
+    const errorResponse: ErrorResponse = {
+      error: 'Learning mode failed',
+      message:
+        error instanceof Error ? error.message : 'Unknown error occurred',
+      timestamp: new Date().toISOString(),
+    };
+
+    return res.status(500).json(errorResponse);
+  }
+});
+
+// Get AI-generated learning mode content for an issue
+router.post('/learning', async (req: Request, res: Response) => {
+  try {
+    const request: IssueExplanationRequest = req.body;
+
+    // Validate request
+    if (!request.code || !request.message || !request.selector) {
+      return res.status(400).json({
+        error: 'Missing required fields',
+        message: 'code, message, and selector are required',
+        timestamp: new Date().toISOString(),
+      });
+    }
+
+    // Generate AI learning content
+    const learningContent = await LearningModeService.getLearningContentWithAI({
+      code: request.code,
+      context: request.context || '',
+      message: request.message,
+      selector: request.selector,
+      type: request.type || 'error',
+    });
+
+    return res.status(200).json(learningContent);
+  } catch (error) {
+    console.error('AI learning mode error:', error);
+
+    const errorResponse: ErrorResponse = {
+      error: 'AI learning mode failed',
       message:
         error instanceof Error ? error.message : 'Unknown error occurred',
       timestamp: new Date().toISOString(),

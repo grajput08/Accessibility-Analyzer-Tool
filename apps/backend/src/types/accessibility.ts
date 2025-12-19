@@ -79,3 +79,19 @@ export interface IssueExplanationResponse {
   suggestions: Suggestion[];
   codeFixes: CodeFix[];
 }
+
+export interface LearningModeContent {
+  whyItMatters: string;
+  wcagGuideline: string;
+  howToTestManually: string;
+  articleLinks?: Array<{
+    title: string;
+    url: string;
+    description?: string;
+  }>;
+  youtubeVideoLinks?: Array<{
+    title: string;
+    url: string;
+    description?: string;
+  }>;
+}

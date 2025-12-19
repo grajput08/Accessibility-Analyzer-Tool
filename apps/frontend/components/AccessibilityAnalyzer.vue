@@ -307,6 +307,400 @@
                   </div>
                 </div>
 
+                <!-- Learning Mode Section (Built-in Education) -->
+                <div class="mt-6 pt-6 border-t-2 border-purple-200">
+                  <!-- Header/Button Section - Only shown when content is NOT loaded -->
+                  <div
+                    v-if="
+                      !issue.learningContent &&
+                      !loadingLearningContent[`${issue.code}-${issue.selector}`]
+                    "
+                    class="flex items-center justify-between mb-4"
+                  >
+                    <h4
+                      class="text-lg font-bold text-gray-900 flex items-center"
+                    >
+                      <svg
+                        class="w-5 h-5 mr-2 text-purple-600"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
+                        />
+                      </svg>
+                      Accessibility Learning Mode
+                      <span
+                        class="ml-2 inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-800"
+                      >
+                        Built-in Education
+                      </span>
+                    </h4>
+                    <button
+                      @click="toggleLearningMode(issue, index)"
+                      class="inline-flex items-center px-4 py-2 text-sm font-semibold text-white bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 rounded-lg shadow-md hover:shadow-lg transition-all duration-200 transform hover:scale-[1.02]"
+                    >
+                      <svg
+                        class="w-5 h-5 mr-2"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
+                        />
+                      </svg>
+                      Open Learning Mode
+                    </button>
+                  </div>
+
+                  <!-- Loading State -->
+                  <div
+                    v-if="
+                      loadingLearningContent[`${issue.code}-${issue.selector}`]
+                    "
+                    class="flex flex-col items-center justify-center py-6 bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl border-2 border-purple-200"
+                  >
+                    <svg
+                      class="animate-spin h-6 w-6 mb-2 text-purple-600"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                    >
+                      <circle
+                        class="opacity-25"
+                        cx="12"
+                        cy="12"
+                        r="10"
+                        stroke="currentColor"
+                        stroke-width="4"
+                      ></circle>
+                      <path
+                        class="opacity-75"
+                        fill="currentColor"
+                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                      ></path>
+                    </svg>
+                    <p class="text-sm font-medium text-gray-700">
+                      Loading educational content...
+                    </p>
+                  </div>
+
+                  <!-- Learning Content - Shows when loaded, with collapse button -->
+                  <div v-else-if="issue.learningContent" class="space-y-4">
+                    <!-- Collapse Button -->
+                    <div class="flex items-center justify-between mb-4">
+                      <h4
+                        class="text-lg font-bold text-gray-900 flex items-center"
+                      >
+                        <svg
+                          class="w-5 h-5 mr-2 text-purple-600"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
+                          />
+                        </svg>
+                        Accessibility Learning Mode
+                        <span
+                          class="ml-2 inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-800"
+                        >
+                          Built-in Education
+                        </span>
+                      </h4>
+                      <button
+                        @click="toggleLearningMode(issue, index)"
+                        class="inline-flex items-center px-3 py-2 text-sm font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors"
+                      >
+                        <svg
+                          class="w-5 h-5 mr-2"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M6 18L18 6M6 6l12 12"
+                          />
+                        </svg>
+                        Hide
+                      </button>
+                    </div>
+                    <!-- Why It Matters -->
+                    <div
+                      class="bg-gradient-to-br from-red-50 to-orange-50 border-l-4 border-red-500 rounded-lg p-4 shadow-sm"
+                    >
+                      <div class="flex items-start">
+                        <div
+                          class="flex-shrink-0 w-10 h-10 bg-red-100 rounded-lg flex items-center justify-center mr-3"
+                        >
+                          <svg
+                            class="w-6 h-6 text-red-600"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width="2"
+                              d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+                            />
+                          </svg>
+                        </div>
+                        <div class="flex-1">
+                          <h5
+                            class="text-sm font-bold text-gray-900 mb-2 flex items-center"
+                          >
+                            Why It Matters
+                          </h5>
+                          <p
+                            class="text-sm text-gray-700 leading-relaxed whitespace-pre-line"
+                          >
+                            {{ issue.learningContent.whyItMatters }}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- What WCAG Says -->
+                    <div
+                      class="bg-gradient-to-br from-blue-50 to-indigo-50 border-l-4 border-blue-500 rounded-lg p-4 shadow-sm"
+                    >
+                      <div class="flex items-start">
+                        <div
+                          class="flex-shrink-0 w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center mr-3"
+                        >
+                          <svg
+                            class="w-6 h-6 text-blue-600"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width="2"
+                              d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                            />
+                          </svg>
+                        </div>
+                        <div class="flex-1">
+                          <h5
+                            class="text-sm font-bold text-gray-900 mb-2 flex items-center"
+                          >
+                            What WCAG Says
+                          </h5>
+                          <p
+                            class="text-sm text-gray-700 leading-relaxed whitespace-pre-line"
+                          >
+                            {{ issue.learningContent.wcagGuideline }}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- How to Test Manually -->
+                    <div
+                      class="bg-gradient-to-br from-green-50 to-emerald-50 border-l-4 border-green-500 rounded-lg p-4 shadow-sm"
+                    >
+                      <div class="flex items-start">
+                        <div
+                          class="flex-shrink-0 w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center mr-3"
+                        >
+                          <svg
+                            class="w-6 h-6 text-green-600"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width="2"
+                              d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"
+                            />
+                          </svg>
+                        </div>
+                        <div class="flex-1">
+                          <h5
+                            class="text-sm font-bold text-gray-900 mb-2 flex items-center"
+                          >
+                            How to Test Manually
+                          </h5>
+                          <p
+                            class="text-sm text-gray-700 leading-relaxed whitespace-pre-line"
+                          >
+                            {{ issue.learningContent.howToTestManually }}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Article Links -->
+                    <div
+                      v-if="
+                        issue.learningContent.articleLinks &&
+                        issue.learningContent.articleLinks.length > 0
+                      "
+                      class="bg-gradient-to-br from-indigo-50 to-blue-50 border-l-4 border-indigo-500 rounded-lg p-4 shadow-sm"
+                    >
+                      <div class="flex items-start">
+                        <div
+                          class="flex-shrink-0 w-10 h-10 bg-indigo-100 rounded-lg flex items-center justify-center mr-3"
+                        >
+                          <svg
+                            class="w-6 h-6 text-indigo-600"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width="2"
+                              d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
+                            />
+                          </svg>
+                        </div>
+                        <div class="flex-1">
+                          <h5
+                            class="text-sm font-bold text-gray-900 mb-3 flex items-center"
+                          >
+                            Recommended Articles
+                          </h5>
+                          <div class="space-y-2">
+                            <a
+                              v-for="(article, articleIndex) in issue
+                                .learningContent.articleLinks"
+                              :key="articleIndex"
+                              :href="article.url"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              class="block p-3 bg-white rounded-lg border-2 border-indigo-200 hover:border-indigo-400 hover:shadow-md transition-all duration-200 group"
+                            >
+                              <div class="flex items-start justify-between">
+                                <div class="flex-1">
+                                  <h6
+                                    class="text-sm font-semibold text-gray-900 group-hover:text-indigo-600 transition-colors mb-1"
+                                  >
+                                    {{ article.title }}
+                                  </h6>
+                                  <p
+                                    v-if="article.description"
+                                    class="text-xs text-gray-600 leading-relaxed"
+                                  >
+                                    {{ article.description }}
+                                  </p>
+                                </div>
+                                <svg
+                                  class="w-5 h-5 text-indigo-500 ml-3 flex-shrink-0 opacity-0 group-hover:opacity-100 transition-opacity"
+                                  fill="none"
+                                  stroke="currentColor"
+                                  viewBox="0 0 24 24"
+                                >
+                                  <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    stroke-width="2"
+                                    d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                                  />
+                                </svg>
+                              </div>
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- YouTube Video Links -->
+                    <div
+                      v-if="
+                        issue.learningContent.youtubeVideoLinks &&
+                        issue.learningContent.youtubeVideoLinks.length > 0
+                      "
+                      class="bg-gradient-to-br from-red-50 to-pink-50 border-l-4 border-red-500 rounded-lg p-4 shadow-sm"
+                    >
+                      <div class="flex items-start">
+                        <div
+                          class="flex-shrink-0 w-10 h-10 bg-red-100 rounded-lg flex items-center justify-center mr-3"
+                        >
+                          <svg
+                            class="w-6 h-6 text-red-600"
+                            fill="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"
+                            />
+                          </svg>
+                        </div>
+                        <div class="flex-1">
+                          <h5
+                            class="text-sm font-bold text-gray-900 mb-3 flex items-center"
+                          >
+                            Recommended Videos
+                          </h5>
+                          <div class="space-y-2">
+                            <a
+                              v-for="(video, videoIndex) in issue
+                                .learningContent.youtubeVideoLinks"
+                              :key="videoIndex"
+                              :href="video.url"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              class="block p-3 bg-white rounded-lg border-2 border-red-200 hover:border-red-400 hover:shadow-md transition-all duration-200 group"
+                            >
+                              <div class="flex items-start justify-between">
+                                <div class="flex-1">
+                                  <h6
+                                    class="text-sm font-semibold text-gray-900 group-hover:text-red-600 transition-colors mb-1"
+                                  >
+                                    {{ video.title }}
+                                  </h6>
+                                  <p
+                                    v-if="video.description"
+                                    class="text-xs text-gray-600 leading-relaxed"
+                                  >
+                                    {{ video.description }}
+                                  </p>
+                                </div>
+                                <svg
+                                  class="w-5 h-5 text-red-500 ml-3 flex-shrink-0 opacity-0 group-hover:opacity-100 transition-opacity"
+                                  fill="none"
+                                  stroke="currentColor"
+                                  viewBox="0 0 24 24"
+                                >
+                                  <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    stroke-width="2"
+                                    d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                                  />
+                                </svg>
+                              </div>
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
                 <!-- AI Explanation Section -->
                 <div class="mt-6 pt-6 border-t-2 border-gray-200">
                   <!-- Header -->
@@ -1162,7 +1556,9 @@ const formData = ref({
 const activeTab = ref('error');
 const showTooltip = ref(null);
 const loadingExplanations = ref({});
+const loadingLearningContent = ref({});
 const copiedTextId = ref(null);
+const expandedLearningModes = ref({});
 
 const handleAnalyze = async () => {
   try {
@@ -1220,6 +1616,111 @@ const copyToClipboard = async (text, index) => {
     }, 2000);
   } catch (err) {
     console.error('Failed to copy: ', err);
+  }
+};
+
+// Toggle learning mode for an issue
+const toggleLearningMode = async (issue, index) => {
+  if (!store.results) return;
+
+  const learningKey = `${issue.code}-${issue.selector}`;
+  const isExpanded = expandedLearningModes.value[learningKey];
+  const hasContent = issue.learningContent;
+
+  if (isExpanded && hasContent) {
+    // Hide the content by removing it from the issue
+    const issueIndex = store.results.issues.findIndex(
+      (i) =>
+        i.code === issue.code &&
+        i.selector === issue.selector &&
+        i.message === issue.message &&
+        i.type === issue.type,
+    );
+
+    if (issueIndex !== -1) {
+      const targetIssue = store.results.issues[issueIndex];
+      targetIssue.learningContent = undefined;
+    }
+    expandedLearningModes.value[learningKey] = false;
+  } else if (!isExpanded && !hasContent) {
+    // Expand and fetch content
+    expandedLearningModes.value[learningKey] = true;
+    await fetchLearningContent(issue, index);
+  }
+};
+
+// Fetch learning content for an issue (using AI-powered endpoint)
+const fetchLearningContent = async (issue, index) => {
+  if (!store.results) return;
+
+  // Use a unique key for loading state (code + selector)
+  const loadingKey = `${issue.code}-${issue.selector}`;
+  loadingLearningContent.value[loadingKey] = true;
+
+  try {
+    // Use AI-powered endpoint for richer content with articles and videos
+    const learningContent = await api.getLearningContentWithAI(issue);
+
+    // Fallback to static content if AI generation fails
+    if (!learningContent) {
+      const staticContent = await api.getLearningContent(issue.code);
+      if (staticContent) {
+        // Update the issue in the store results
+        const issueIndex = store.results.issues.findIndex(
+          (i) =>
+            i.code === issue.code &&
+            i.selector === issue.selector &&
+            i.message === issue.message &&
+            i.type === issue.type,
+        );
+
+        if (issueIndex !== -1) {
+          const targetIssue = store.results.issues[issueIndex];
+          targetIssue.learningContent = staticContent;
+        }
+      }
+      return;
+    }
+
+    // Update the issue in the store results
+    // Find the issue in the original results array
+    const issueIndex = store.results.issues.findIndex(
+      (i) =>
+        i.code === issue.code &&
+        i.selector === issue.selector &&
+        i.message === issue.message &&
+        i.type === issue.type,
+    );
+
+    if (issueIndex !== -1 && learningContent) {
+      // Directly update the issue properties (Pinia reactivity handles this)
+      const targetIssue = store.results.issues[issueIndex];
+      targetIssue.learningContent = learningContent;
+    }
+  } catch (error) {
+    console.error('Failed to fetch learning content:', error);
+    // Try fallback to static content
+    try {
+      const staticContent = await api.getLearningContent(issue.code);
+      if (staticContent) {
+        const issueIndex = store.results.issues.findIndex(
+          (i) =>
+            i.code === issue.code &&
+            i.selector === issue.selector &&
+            i.message === issue.message &&
+            i.type === issue.type,
+        );
+
+        if (issueIndex !== -1) {
+          const targetIssue = store.results.issues[issueIndex];
+          targetIssue.learningContent = staticContent;
+        }
+      }
+    } catch (fallbackError) {
+      console.error('Failed to fetch static learning content:', fallbackError);
+    }
+  } finally {
+    loadingLearningContent.value[loadingKey] = false;
   }
 };
 

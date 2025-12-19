@@ -46,6 +46,7 @@ export interface Pa11yIssue {
   details?: IssueDetails;
   suggestions?: Suggestion[];
   codeFixes?: CodeFix[];
+  learningContent?: LearningModeContent;
 }
 
 export interface AccessibilityAnalysisResponse {
@@ -67,6 +68,22 @@ export interface ErrorResponse {
   error: string;
   message?: string;
   timestamp: string;
+}
+
+export interface LearningModeContent {
+  whyItMatters: string;
+  wcagGuideline: string;
+  howToTestManually: string;
+  articleLinks?: Array<{
+    title: string;
+    url: string;
+    description?: string;
+  }>;
+  youtubeVideoLinks?: Array<{
+    title: string;
+    url: string;
+    description?: string;
+  }>;
 }
 
 export interface AccessibilityState {
