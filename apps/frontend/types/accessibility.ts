@@ -73,7 +73,7 @@ export interface ErrorResponse {
 export interface LearningModeContent {
   whyItMatters: string;
   wcagGuideline: string;
-  howToTestManually: string;
+  howToTestManually: string | string[];
   articleLinks?: Array<{
     title: string;
     url: string;

@@ -309,12 +309,9 @@
 
                 <!-- Learning Mode Section (Built-in Education) -->
                 <div class="mt-6 pt-6 border-t-2 border-purple-200">
-                  <!-- Header/Button Section - Only shown when content is NOT loaded -->
+                  <!-- Header/Button Section - Shown when content is NOT loaded (including loading state) -->
                   <div
-                    v-if="
-                      !issue.learningContent &&
-                      !loadingLearningContent[`${issue.code}-${issue.selector}`]
-                    "
+                    v-if="!issue.learningContent"
                     class="flex items-center justify-between mb-4"
                   >
                     <h4
@@ -342,9 +339,40 @@
                     </h4>
                     <button
                       @click="toggleLearningMode(issue, index)"
-                      class="inline-flex items-center px-4 py-2 text-sm font-semibold text-white bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 rounded-lg shadow-md hover:shadow-lg transition-all duration-200 transform hover:scale-[1.02]"
+                      :disabled="
+                        loadingLearningContent[
+                          `${issue.code}-${issue.selector}`
+                        ]
+                      "
+                      class="inline-flex items-center px-4 py-2 text-sm font-semibold text-white bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 rounded-lg shadow-md hover:shadow-lg transition-all duration-200 transform hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
                     >
                       <svg
+                        v-if="
+                          loadingLearningContent[
+                            `${issue.code}-${issue.selector}`
+                          ]
+                        "
+                        class="animate-spin -ml-1 mr-2 h-5 w-5 text-white"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                      >
+                        <circle
+                          class="opacity-25"
+                          cx="12"
+                          cy="12"
+                          r="10"
+                          stroke="currentColor"
+                          stroke-width="4"
+                        ></circle>
+                        <path
+                          class="opacity-75"
+                          fill="currentColor"
+                          d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                        ></path>
+                      </svg>
+                      <svg
+                        v-else
                         class="w-5 h-5 mr-2"
                         fill="none"
                         stroke="currentColor"
@@ -357,40 +385,17 @@
                           d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
                         />
                       </svg>
-                      Open Learning Mode
+                      <span
+                        v-if="
+                          loadingLearningContent[
+                            `${issue.code}-${issue.selector}`
+                          ]
+                        "
+                      >
+                        Loading...
+                      </span>
+                      <span v-else>Open Learning Mode</span>
                     </button>
-                  </div>
-
-                  <!-- Loading State -->
-                  <div
-                    v-if="
-                      loadingLearningContent[`${issue.code}-${issue.selector}`]
-                    "
-                    class="flex flex-col items-center justify-center py-6 bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl border-2 border-purple-200"
-                  >
-                    <svg
-                      class="animate-spin h-6 w-6 mb-2 text-purple-600"
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                    >
-                      <circle
-                        class="opacity-25"
-                        cx="12"
-                        cy="12"
-                        r="10"
-                        stroke="currentColor"
-                        stroke-width="4"
-                      ></circle>
-                      <path
-                        class="opacity-75"
-                        fill="currentColor"
-                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                      ></path>
-                    </svg>
-                    <p class="text-sm font-medium text-gray-700">
-                      Loading educational content...
-                    </p>
                   </div>
 
                   <!-- Learning Content - Shows when loaded, with collapse button -->
@@ -420,25 +425,6 @@
                           Built-in Education
                         </span>
                       </h4>
-                      <button
-                        @click="toggleLearningMode(issue, index)"
-                        class="inline-flex items-center px-3 py-2 text-sm font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors"
-                      >
-                        <svg
-                          class="w-5 h-5 mr-2"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            d="M6 18L18 6M6 6l12 12"
-                          />
-                        </svg>
-                        Hide
-                      </button>
                     </div>
                     <!-- Why It Matters -->
                     <div
@@ -538,15 +524,41 @@
                         </div>
                         <div class="flex-1">
                           <h5
-                            class="text-sm font-bold text-gray-900 mb-2 flex items-center"
+                            class="text-sm font-bold text-gray-900 mb-4 flex items-center"
                           >
                             How to Test Manually
                           </h5>
-                          <p
-                            class="text-sm text-gray-700 leading-relaxed whitespace-pre-line"
+                          <!-- Array format -->
+                          <ol
+                            v-if="
+                              Array.isArray(
+                                issue.learningContent.howToTestManually,
+                              )
+                            "
+                            class="space-y-4 list-none pl-0"
                           >
-                            {{ issue.learningContent.howToTestManually }}
-                          </p>
+                            <li
+                              v-for="(step, stepIndex) in issue.learningContent
+                                .howToTestManually"
+                              :key="stepIndex"
+                              class="flex items-start group"
+                            >
+                              <div
+                                class="text-sm text-gray-700 leading-relaxed flex-1 pt-0.5 markdown-content"
+                                v-html="renderMarkdown(step)"
+                              ></div>
+                            </li>
+                          </ol>
+                          <!-- String format (fallback) -->
+                          <div
+                            v-else
+                            class="text-sm text-gray-700 leading-relaxed markdown-content"
+                            v-html="
+                              renderMarkdown(
+                                issue.learningContent.howToTestManually,
+                              )
+                            "
+                          ></div>
                         </div>
                       </div>
                     </div>
@@ -1542,9 +1554,23 @@
 <script setup>
 import { useAccessibilityStore } from '~/stores/accessibility';
 import { useAccessibilityApi } from '~/composables/useAccessibilityApi';
+import { marked } from 'marked';
 
 const store = useAccessibilityStore();
 const api = useAccessibilityApi();
+
+// Configure marked options
+marked.setOptions({
+  breaks: true,
+  gfm: true,
+});
+
+// Function to render markdown to HTML
+const renderMarkdown = (content) => {
+  if (!content) return '';
+  // Convert markdown to HTML
+  return marked.parse(content);
+};
 
 const formData = ref({
   url: '',
@@ -1849,5 +1875,66 @@ pre::-webkit-scrollbar-thumb {
 
 pre::-webkit-scrollbar-thumb:hover {
   background-color: rgba(156, 163, 175, 0.7);
+}
+
+/* Markdown content styling */
+.markdown-content :deep(p) {
+  margin-bottom: 0.5rem;
+}
+
+.markdown-content :deep(p:last-child) {
+  margin-bottom: 0;
+}
+
+.markdown-content :deep(strong) {
+  font-weight: 600;
+  color: inherit;
+}
+
+.markdown-content :deep(em) {
+  font-style: italic;
+}
+
+.markdown-content :deep(a) {
+  color: #2563eb;
+  text-decoration: underline;
+  transition: color 0.2s;
+}
+
+.markdown-content :deep(a:hover) {
+  color: #1d4ed8;
+}
+
+.markdown-content :deep(ul),
+.markdown-content :deep(ol) {
+  margin-left: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.markdown-content :deep(li) {
+  margin-bottom: 0.25rem;
+}
+
+.markdown-content :deep(code) {
+  background-color: rgba(0, 0, 0, 0.05);
+  padding: 0.125rem 0.25rem;
+  border-radius: 0.25rem;
+  font-size: 0.875em;
+  font-family:
+    ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono',
+    'Courier New', monospace;
+}
+
+.markdown-content :deep(pre) {
+  background-color: rgba(0, 0, 0, 0.05);
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  overflow-x: auto;
+  margin-bottom: 0.5rem;
+}
+
+.markdown-content :deep(pre code) {
+  background-color: transparent;
+  padding: 0;
 }
 </style>
