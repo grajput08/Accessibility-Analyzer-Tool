@@ -1,4 +1,5 @@
 import pa11y from 'pa11y';
+import puppeteer from 'puppeteer';
 import {
   AccessibilityAnalysisRequest,
   AccessibilityAnalysisResponse,
@@ -6,6 +7,19 @@ import {
 } from '../types/accessibility';
 
 export class AccessibilityService {
+  /**
+   * Get Chrome executable path from Puppeteer
+   */
+  private static getChromeExecutablePath(): string | undefined {
+    try {
+      // Use Puppeteer's executablePath method to get the correct Chrome path
+      return puppeteer.executablePath();
+    } catch (error) {
+      console.warn('Could not determine Chrome executable path:', error);
+      return undefined;
+    }
+  }
+
   /**
    * Analyze a URL for accessibility issues using Pa11y
    */
@@ -15,6 +29,28 @@ export class AccessibilityService {
     try {
       // Validate URL
       const url = new URL(request.url);
+
+      // Get Chrome executable path
+      const chromeExecutablePath = this.getChromeExecutablePath();
+
+      // Build chrome launch config
+      const chromeLaunchConfig: any = {
+        args: [
+          '--no-sandbox',
+          '--disable-setuid-sandbox',
+          '--disable-dev-shm-usage',
+          '--disable-accelerated-2d-canvas',
+          '--no-first-run',
+          '--no-zygote',
+          '--disable-gpu',
+        ],
+        ignoreHTTPSErrors: true,
+      };
+
+      // Only set executablePath if we have a valid path
+      if (chromeExecutablePath) {
+        chromeLaunchConfig.executablePath = chromeExecutablePath;
+      }
 
       // Configure Pa11y options
       // Note: includeWarnings is set to true by default to ensure color contrast
@@ -27,11 +63,7 @@ export class AccessibilityService {
         wait: request.wait || 0,
         timeout: request.timeout || 30000,
         hideElements: request.hideElements || '',
-        chromeLaunchConfig: {
-          args: ['--no-sandbox', '--disable-setuid-sandbox'],
-          ignoreHTTPSErrors: true,
-          executablePath: '',
-        },
+        chromeLaunchConfig,
         log: {
           debug: console.log,
           error: console.error,
