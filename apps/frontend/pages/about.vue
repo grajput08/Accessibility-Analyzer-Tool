@@ -1,26 +1,41 @@
 <template>
   <div class="fade-in">
     <!-- Header Section -->
-    <section class="relative bg-gradient-to-br from-primary-50 via-white to-accent-50 py-24 overflow-hidden">
+    <section
+      class="relative bg-gradient-to-br from-primary-50 via-white to-accent-50 py-24 overflow-hidden"
+    >
       <div class="absolute inset-0 bg-grid-pattern opacity-5"></div>
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div class="text-center">
-          <div class="inline-flex items-center px-4 py-2 bg-primary-100 rounded-full text-primary-700 text-sm font-medium mb-6">
+          <div
+            class="inline-flex items-center px-4 py-2 bg-primary-100 rounded-full text-primary-700 text-sm font-medium mb-6"
+          >
             <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
-              <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
+              <path
+                fill-rule="evenodd"
+                d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                clip-rule="evenodd"
+              />
             </svg>
             About Us
           </div>
-          <h1 class="text-5xl md:text-7xl font-bold text-gray-900 mb-6 leading-tight">
+          <h1
+            class="text-5xl md:text-7xl font-bold text-gray-900 mb-6 leading-tight"
+          >
             Building an
-            <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary-600 to-accent-600">
+            <span
+              class="text-transparent bg-clip-text bg-gradient-to-r from-primary-600 to-accent-600"
+            >
               Inclusive Web
             </span>
             for Everyone
           </h1>
-          <p class="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            We're on a mission to make web accessibility testing accessible to everyone, 
-            empowering developers and designers to create inclusive digital experiences.
+          <p
+            class="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto leading-relaxed"
+          >
+            We're on a mission to make web accessibility testing accessible to
+            everyone, empowering developers and designers to create inclusive
+            digital experiences.
           </p>
         </div>
       </div>
@@ -31,22 +46,26 @@
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid md:grid-cols-2 gap-12 items-center">
           <div>
-            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">Our Mission</h2>
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+              Our Mission
+            </h2>
             <p class="text-lg text-gray-600 mb-6 leading-relaxed">
-              We believe that digital accessibility is not just a legal requirement, 
-              but a fundamental human right. Over 1 billion people worldwide live with 
-              some form of disability, and they deserve equal access to digital content 
-              and services.
+              We believe that digital accessibility is not just a legal
+              requirement, but a fundamental human right. Over 1 billion people
+              worldwide live with some form of disability, and they deserve
+              equal access to digital content and services.
             </p>
             <p class="text-lg text-gray-600 mb-6 leading-relaxed">
-              Our mission is to make web accessibility testing accessible to everyone, 
-              from individual developers to large organizations. By providing comprehensive, 
-              easy-to-use tools and detailed reports, we help teams identify and fix 
-              accessibility issues before they reach users.
+              Our mission is to make web accessibility testing accessible to
+              everyone, from individual developers to large organizations. By
+              providing comprehensive, easy-to-use tools and detailed reports,
+              we help teams identify and fix accessibility issues before they
+              reach users.
             </p>
             <p class="text-lg text-gray-600 leading-relaxed">
-              Together, we're creating a more inclusive web where everyone can participate, 
-              regardless of their abilities or the technologies they use.
+              Together, we're creating a more inclusive web where everyone can
+              participate, regardless of their abilities or the technologies
+              they use.
             </p>
           </div>
           <div class="grid grid-cols-2 gap-6">
@@ -163,7 +182,8 @@
             Why Accessibility Matters
           </h2>
           <p class="text-xl text-gray-600 max-w-2xl mx-auto">
-            Creating accessible websites benefits everyone, not just people with disabilities
+            Creating accessible websites benefits everyone, not just people with
+            disabilities
           </p>
         </div>
 
@@ -171,9 +191,21 @@
           <div class="card hover:scale-105 transition-transform">
             <div class="flex items-start">
               <div class="flex-shrink-0">
-                <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
-                  <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+                <div
+                  class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center"
+                >
+                  <svg
+                    class="w-6 h-6 text-blue-600"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"
+                    />
                   </svg>
                 </div>
               </div>
@@ -182,7 +214,8 @@
                   Legal Compliance
                 </h3>
                 <p class="text-gray-600">
-                  Meet ADA, Section 508, and WCAG requirements to avoid legal issues and ensure compliance with accessibility laws.
+                  Meet ADA, Section 508, and WCAG requirements to avoid legal
+                  issues and ensure compliance with accessibility laws.
                 </p>
               </div>
             </div>
@@ -191,9 +224,21 @@
           <div class="card hover:scale-105 transition-transform">
             <div class="flex items-start">
               <div class="flex-shrink-0">
-                <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
-                  <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                <div
+                  class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center"
+                >
+                  <svg
+                    class="w-6 h-6 text-green-600"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
+                    />
                   </svg>
                 </div>
               </div>
@@ -202,7 +247,9 @@
                   Broader Audience
                 </h3>
                 <p class="text-gray-600">
-                  Reach more users by making your website usable for people with disabilities, which represents a significant portion of the population.
+                  Reach more users by making your website usable for people with
+                  disabilities, which represents a significant portion of the
+                  population.
                 </p>
               </div>
             </div>
@@ -211,9 +258,21 @@
           <div class="card hover:scale-105 transition-transform">
             <div class="flex items-start">
               <div class="flex-shrink-0">
-                <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
-                  <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                <div
+                  class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center"
+                >
+                  <svg
+                    class="w-6 h-6 text-purple-600"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M13 10V3L4 14h7v7l9-11h-7z"
+                    />
                   </svg>
                 </div>
               </div>
@@ -222,7 +281,9 @@
                   Better UX
                 </h3>
                 <p class="text-gray-600">
-                  Accessible websites often provide better user experience for everyone, including improved navigation and clearer content structure.
+                  Accessible websites often provide better user experience for
+                  everyone, including improved navigation and clearer content
+                  structure.
                 </p>
               </div>
             </div>
@@ -239,7 +300,8 @@
             What We Test
           </h2>
           <p class="text-xl text-gray-600 max-w-2xl mx-auto">
-            Our comprehensive analysis covers all major accessibility standards and guidelines
+            Our comprehensive analysis covers all major accessibility standards
+            and guidelines
           </p>
         </div>
 
@@ -272,7 +334,8 @@
               Visual Accessibility
             </h3>
             <p class="text-gray-600">
-              Color contrast ratios, text sizing, focus indicators, visual hierarchy, and image alt text analysis.
+              Color contrast ratios, text sizing, focus indicators, visual
+              hierarchy, and image alt text analysis.
             </p>
           </div>
 
@@ -298,7 +361,8 @@
               WCAG Compliance
             </h3>
             <p class="text-gray-600">
-              Full WCAG 2.0 and 2.1 Level A, AA, and AAA compliance testing with detailed criteria mapping and explanations.
+              Full WCAG 2.0 and 2.1 Level A, AA, and AAA compliance testing with
+              detailed criteria mapping and explanations.
             </p>
           </div>
 
@@ -324,7 +388,8 @@
               Mobile Accessibility
             </h3>
             <p class="text-gray-600">
-              Touch target sizes, viewport settings, mobile-specific accessibility features, and responsive design analysis.
+              Touch target sizes, viewport settings, mobile-specific
+              accessibility features, and responsive design analysis.
             </p>
           </div>
 
@@ -350,7 +415,8 @@
               Semantic HTML
             </h3>
             <p class="text-gray-600">
-              Proper use of HTML elements, ARIA attributes, heading hierarchy, and semantic structure analysis.
+              Proper use of HTML elements, ARIA attributes, heading hierarchy,
+              and semantic structure analysis.
             </p>
           </div>
 
@@ -376,7 +442,8 @@
               Keyboard Navigation
             </h3>
             <p class="text-gray-600">
-              Tab order, focus management, keyboard shortcuts, and ensuring all interactive elements are keyboard accessible.
+              Tab order, focus management, keyboard shortcuts, and ensuring all
+              interactive elements are keyboard accessible.
             </p>
           </div>
 
@@ -402,7 +469,8 @@
               Screen Reader Support
             </h3>
             <p class="text-gray-600">
-              ARIA labels, live regions, descriptive text, and ensuring content is properly announced by assistive technologies.
+              ARIA labels, live regions, descriptive text, and ensuring content
+              is properly announced by assistive technologies.
             </p>
           </div>
         </div>
@@ -417,7 +485,8 @@
             Built with Modern Technology
           </h2>
           <p class="text-xl text-gray-600 max-w-2xl mx-auto">
-            Our tool leverages cutting-edge technologies to ensure reliability, performance, and accuracy
+            Our tool leverages cutting-edge technologies to ensure reliability,
+            performance, and accuracy
           </p>
         </div>
 
@@ -430,7 +499,8 @@
             </div>
             <h3 class="text-xl font-semibold text-gray-900 mb-2">Nuxt.js</h3>
             <p class="text-gray-600">
-              Modern Vue.js framework providing server-side rendering and optimal performance
+              Modern Vue.js framework providing server-side rendering and
+              optimal performance
             </p>
           </div>
 
@@ -481,7 +551,9 @@
             </p>
           </div>
           <div class="text-center">
-            <div class="text-2xl font-bold text-gray-900 mb-2">AI Integration</div>
+            <div class="text-2xl font-bold text-gray-900 mb-2">
+              AI Integration
+            </div>
             <p class="text-gray-600 text-sm">
               Advanced AI for intelligent explanations and recommendations
             </p>
@@ -503,7 +575,8 @@
           Ready to Make Your Website Accessible?
         </h2>
         <p class="text-xl text-primary-100 mb-8">
-          Start analyzing your website today and join us in building a more inclusive web
+          Start analyzing your website today and join us in building a more
+          inclusive web
         </p>
         <NuxtLink
           to="/analyze"
@@ -535,7 +608,7 @@
 
 <style scoped>
 .bg-grid-pattern {
-  background-image: 
+  background-image:
     linear-gradient(to right, rgba(0, 0, 0, 0.05) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(0, 0, 0, 0.05) 1px, transparent 1px);
   background-size: 20px 20px;
