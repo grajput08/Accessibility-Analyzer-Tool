@@ -2,18 +2,7 @@ import type {
   AccessibilityAnalysisRequest,
   AccessibilityAnalysisResponse,
   ErrorResponse,
-  Pa11yIssue,
 } from '../types/accessibility';
-
-import type { CodeFix, Suggestion, IssueDetails } from '../types/accessibility';
-
-export interface IssueExplanationResponse {
-  explanation: string;
-  fix: string;
-  details: IssueDetails;
-  suggestions: Suggestion[];
-  codeFixes: CodeFix[];
-}
 
 export const useAccessibilityApi = () => {
   const config = useRuntimeConfig();
@@ -61,47 +50,8 @@ export const useAccessibilityApi = () => {
     }
   };
 
-  const explainIssue = async (
-    issue: Pa11yIssue,
-  ): Promise<IssueExplanationResponse> => {
-    try {
-      const response = await $fetch<IssueExplanationResponse>(
-        `${apiBaseUrl}/api/v1/explain-issue`,
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: {
-            code: issue.code,
-            context: issue.context,
-            message: issue.message,
-            selector: issue.selector,
-            type: issue.type,
-          },
-        },
-      );
-
-      return response;
-    } catch (error: any) {
-      console.error('Issue explanation API error:', error);
-
-      let errorMessage = 'An error occurred while generating the explanation';
-
-      if (error.data) {
-        const errorData = error.data as ErrorResponse;
-        errorMessage = errorData.message || errorData.error || errorMessage;
-      } else if (error.message) {
-        errorMessage = error.message;
-      }
-
-      throw new Error(errorMessage);
-    }
-  };
-
   return {
     analyzeUrl,
     checkHealth,
-    explainIssue,
   };
 };

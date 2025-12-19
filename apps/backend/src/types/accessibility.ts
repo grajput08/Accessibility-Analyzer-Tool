@@ -20,8 +20,6 @@ export interface Pa11yIssue {
   selector: string;
   type: 'error' | 'warning' | 'notice';
   runnerExtras?: Record<string, any>;
-  explanation?: string;
-  fix?: string;
 }
 
 export interface AccessibilityAnalysisResponse {
@@ -35,7 +33,6 @@ export interface AccessibilityAnalysisResponse {
       notices: number;
     };
   };
-  aimScore: number;
   timestamp: string;
 }
 
@@ -43,39 +40,4 @@ export interface ErrorResponse {
   error: string;
   message?: string;
   timestamp: string;
-}
-
-export interface IssueExplanationRequest {
-  code: string;
-  context: string;
-  message: string;
-  selector: string;
-  type: 'error' | 'warning' | 'notice';
-}
-
-export interface CodeFix {
-  description: string;
-  beforeCode: string;
-  afterCode: string;
-  explanation: string;
-}
-
-export interface Suggestion {
-  title: string;
-  description: string;
-  priority: 'high' | 'medium' | 'low';
-  example?: string;
-}
-
-export interface IssueExplanationResponse {
-  explanation: string;
-  fix: string;
-  details: {
-    impact: string;
-    wcagGuideline: string;
-    affectedUsers: string[];
-    severity: 'critical' | 'high' | 'medium' | 'low';
-  };
-  suggestions: Suggestion[];
-  codeFixes: CodeFix[];
 }
