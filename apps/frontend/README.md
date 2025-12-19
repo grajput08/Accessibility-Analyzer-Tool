@@ -1,164 +1,82 @@
-# Frontend Accessibility Analyzer
+# Accessibility Analyzer Frontend
 
-This frontend integrates with the backend `/analyse` API using Pinia store for state management.
+Nuxt.js frontend for the Accessibility Analyzer Tool. A modern web application for analyzing and improving web accessibility.
 
 ## Features
 
-- **Pinia Store**: Centralized state management for accessibility analysis
-- **TypeScript Support**: Full type safety with interfaces
-- **Real-time Analysis**: Live accessibility testing with Pa11y
-- **History Management**: Track previous analyses
-- **Error Handling**: Comprehensive error management
+- URL accessibility analysis
+- Real-time results display
+- Responsive design
+- Integration with backend API
+- TypeScript for type safety
+- Pinia for state management
+- TailwindCSS for styling
 
-## Store Usage
+## Getting Started
 
-### Basic Usage
+### Prerequisites
 
-```vue
-<script setup>
-import { useAccessibilityStore } from '~/stores/accessibility';
+- Node.js 18+
+- npm or pnpm
 
-const store = useAccessibilityStore();
+### Installation
 
-// Analyze a URL
-const handleAnalyze = async () => {
-  try {
-    await store.analyzeUrl({
-      url: 'https://example.com',
-      standard: 'WCAG2AA',
-      includeWarnings: true,
-      includeNotices: true,
-    });
-  } catch (error) {
-    console.error('Analysis failed:', error);
-  }
-};
-</script>
-
-<template>
-  <div>
-    <!-- Loading State -->
-    <div v-if="store.isLoading">Analyzing...</div>
-
-    <!-- Error State -->
-    <div v-if="store.error" class="error">{{ store.error }}</div>
-
-    <!-- Results -->
-    <div v-if="store.results">
-      <h3>Results for {{ store.results.documentTitle }}</h3>
-      <p>Total Issues: {{ store.totalIssues }}</p>
-      <p>Errors: {{ store.issuesByType.errors }}</p>
-      <p>Warnings: {{ store.issuesByType.warnings }}</p>
-      <p>Notices: {{ store.issuesByType.notices }}</p>
-    </div>
-  </div>
-</template>
+```bash
+npm install
 ```
 
-### Store State
+### Environment Variables
 
-```typescript
-interface AccessibilityState {
-  isLoading: boolean; // Loading state
-  results: AccessibilityAnalysisResponse | null; // Analysis results
-  error: string | null; // Error message
-  history: AccessibilityAnalysisResponse[]; // Analysis history
-}
+Create a `.env` file:
+
+```env
+API_BASE_URL=http://localhost:3001
 ```
 
-### Store Getters
+### Development
 
-- `totalIssues`: Total number of issues found
-- `issuesByType`: Object with counts for errors, warnings, notices
-- `standardsSummary`: Summary of standards compliance
-- `isAnalysisComplete`: Boolean indicating if analysis is done
-- `recentHistory`: Last 5 analyses
-
-### Store Actions
-
-- `analyzeUrl(request)`: Analyze a URL for accessibility issues
-- `clearResults()`: Clear current results
-- `clearError()`: Clear error state
-- `clearHistory()`: Clear analysis history
-- `loadFromHistory(index)`: Load a specific analysis from history
-
-## API Integration
-
-The store uses the backend API at `/api/v1/analyse` with the following request format:
-
-```typescript
-interface AccessibilityAnalysisRequest {
-  url: string; // Required: URL to analyze
-  standard?: 'WCAG2A' | 'WCAG2AA' | 'WCAG2AAA' | 'Section508';
-  includeWarnings?: boolean; // Default: true
-  includeNotices?: boolean; // Default: true
-  actions?: string[]; // Optional: Pre-analysis actions
-  wait?: number; // Optional: Wait time in ms
-  timeout?: number; // Optional: Timeout in ms
-  hideElements?: string; // Optional: CSS selectors to hide
-}
+```bash
+npm run dev
 ```
 
-## Response Format
+The application will be available at `http://localhost:3000`
 
-```typescript
-interface AccessibilityAnalysisResponse {
-  documentTitle: string;
-  pageUrl: string;
-  issues: Pa11yIssue[];
-  standards: {
-    [key: string]: {
-      errors: number;
-      warnings: number;
-      notices: number;
-    };
-  };
-  timestamp: string;
-}
+### Building
+
+```bash
+npm run build
+npm start
 ```
 
-## Components
+## Deployment
 
-### AccessibilityAnalyzer.vue
+See [DEPLOYMENT.md](./DEPLOYMENT.md) for detailed deployment instructions for Vercel.
 
-A complete component that demonstrates:
+## Project Structure
 
-- Form for URL input and analysis options
-- Real-time loading states
-- Error handling and display
-- Results visualization with issue breakdown
-- Responsive design with Tailwind CSS
+```
+├── pages/           # Application pages
+├── components/      # Vue components
+├── composables/     # Composable functions
+├── stores/          # Pinia stores
+├── assets/          # Static assets
+├── layouts/         # Application layouts
+└── types/           # TypeScript types
+```
 
-## Setup
+## Tech Stack
 
-1. Ensure the backend is running on `http://localhost:3001`
-2. The API base URL is configured in `nuxt.config.ts`
-3. Pinia is already configured in the Nuxt modules
+- Nuxt.js 3 - Vue.js framework
+- Vue 3 - Progressive JavaScript framework
+- TypeScript - Type safety
+- Pinia - State management
+- TailwindCSS - Utility-first CSS
+- SCSS - CSS preprocessor
 
-## Error Handling
+## Features
 
-The store provides comprehensive error handling:
-
-- Network errors
-- API validation errors
-- Timeout errors
-- Invalid URL errors
-
-All errors are stored in `store.error` and can be displayed to users.
-
-## History Management
-
-The store automatically maintains a history of the last 10 analyses:
-
-- Access via `store.history`
-- Recent analyses via `store.recentHistory`
-- Load previous results with `store.loadFromHistory(index)`
-
-## TypeScript Support
-
-Full TypeScript support is provided with:
-
-- Type-safe store state
-- Interface definitions for all API requests/responses
-- Proper error typing
-- Component prop validation
+- Analyze any publicly accessible URL
+- View detailed accessibility issues
+- Filter by severity
+- Export results
+- Responsive design for all devices
