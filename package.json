@@ -2,6 +2,7 @@
   "name": "accessibility-analyzer-tool",
   "version": "1.0.0",
   "description": "Monorepo for Accessibility Analyzer Tool with NuxtJS frontend and Express.js backend",
+  "comment": "Backend: Express.js server with TypeScript, provides accessibility analysis API endpoints using pa11y",
   "private": true,
   "scripts": {
     "dev": "pnpm --parallel dev",
@@ -9,7 +10,10 @@
     "vercel-build": "pnpm build",
     "start": "pnpm --recursive start",
     "lint": "pnpm --recursive lint",
-    "test": "pnpm --recursive test"
+    "test": "pnpm --recursive test",
+    "dev:backend": "cd apps/backend && pnpm dev",
+    "build:backend": "cd apps/backend && pnpm build",
+    "start:backend": "cd apps/backend && pnpm start"
   },
   "devDependencies": {
     "@types/node": "^20.0.0",
