@@ -17,6 +17,11 @@ export default defineNuxtConfig({
             'Accessibility Analyzer Tool - Analyze and improve web accessibility',
         },
       ],
+      link: [
+        { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
+        { rel: 'alternate icon', href: '/favicon.svg' },
+        { rel: 'apple-touch-icon', href: '/favicon.svg' },
+      ],
     },
   },
   runtimeConfig: {
