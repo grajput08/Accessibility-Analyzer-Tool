@@ -33,6 +33,13 @@
               Analyze
             </NuxtLink>
             <NuxtLink
+              to="/training"
+              class="text-gray-700 hover:text-primary-600 px-3 py-2 rounded-md text-sm font-medium transition-colors"
+              active-class="text-primary-600 bg-primary-50"
+            >
+              Training
+            </NuxtLink>
+            <NuxtLink
               to="/about"
               class="text-gray-700 hover:text-primary-600 px-3 py-2 rounded-md text-sm font-medium transition-colors"
               active-class="text-primary-600 bg-primary-50"

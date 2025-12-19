@@ -2,10 +2,12 @@ import { Router, Request, Response } from 'express';
 import { AccessibilityService } from '../services/accessibilityService';
 import { AIExplanationService } from '../services/aiExplanationService';
 import { LearningModeService } from '../services/learningModeService';
+import { QuizService, QuizSubmission } from '../services/quizService';
 import {
   ErrorResponse,
   IssueExplanationRequest,
   IssueExplanationResponse,
+  Pa11yIssue,
 } from '../types/accessibility';
 
 const router: Router = Router();
@@ -149,6 +151,70 @@ router.post('/learning', async (req: Request, res: Response) => {
 
     const errorResponse: ErrorResponse = {
       error: 'AI learning mode failed',
+      message:
+        error instanceof Error ? error.message : 'Unknown error occurred',
+      timestamp: new Date().toISOString(),
+    };
+
+    return res.status(500).json(errorResponse);
+  }
+});
+
+// Generate quiz from accessibility issues
+router.post('/quiz/generate', async (req: Request, res: Response) => {
+  try {
+    const issues: Pa11yIssue[] = req.body.issues;
+
+    // Validate request
+    if (!issues || !Array.isArray(issues) || issues.length === 0) {
+      return res.status(400).json({
+        error: 'Missing required fields',
+        message: 'issues array is required and must not be empty',
+        timestamp: new Date().toISOString(),
+      });
+    }
+
+    // Generate quiz
+    const quiz = await QuizService.generateQuiz(issues);
+
+    return res.status(200).json(quiz);
+  } catch (error) {
+    console.error('Quiz generation error:', error);
+
+    const errorResponse: ErrorResponse = {
+      error: 'Quiz generation failed',
+      message:
+        error instanceof Error ? error.message : 'Unknown error occurred',
+      timestamp: new Date().toISOString(),
+    };
+
+    return res.status(500).json(errorResponse);
+  }
+});
+
+// Evaluate quiz submission
+router.post('/quiz/evaluate', async (req: Request, res: Response) => {
+  try {
+    const { quiz, submissions } = req.body;
+
+    // Validate request
+    if (!quiz || !submissions || !Array.isArray(submissions)) {
+      return res.status(400).json({
+        error: 'Missing required fields',
+        message: 'quiz and submissions array are required',
+        timestamp: new Date().toISOString(),
+      });
+    }
+
+    // Evaluate quiz
+    const result = await QuizService.evaluateQuiz(quiz, submissions);
+
+    return res.status(200).json(result);
+  } catch (error) {
+    console.error('Quiz evaluation error:', error);
+
+    const errorResponse: ErrorResponse = {
+      error: 'Quiz evaluation failed',
       message:
         error instanceof Error ? error.message : 'Unknown error occurred',
       timestamp: new Date().toISOString(),

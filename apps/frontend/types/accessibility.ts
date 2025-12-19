@@ -92,3 +92,52 @@ export interface AccessibilityState {
   error: string | null;
   history: AccessibilityAnalysisResponse[];
 }
+
+// Quiz Types
+export interface QuizQuestion {
+  id: string;
+  type: 'mcq' | 'code' | 'true-false' | 'scenario';
+  question: string;
+  options?: string[];
+  correctAnswer: string | string[];
+  explanation: string;
+  topic: string;
+  points: number;
+  codeSnippet?: string;
+  scenario?: string;
+}
+
+export interface Quiz {
+  id: string;
+  title: string;
+  description: string;
+  questions: QuizQuestion[];
+  topics: string[];
+  totalPoints: number;
+  estimatedTime: number;
+  createdAt: string;
+}
+
+export interface QuizSubmission {
+  questionId: string;
+  answer: string;
+}
+
+export interface QuizResult {
+  score: number;
+  totalPoints: number;
+  percentage: number;
+  answers: Array<{
+    questionId: string;
+    question: string;
+    userAnswer: string;
+    correctAnswer: string | string[];
+    isCorrect: boolean;
+    pointsEarned: number;
+    pointsPossible: number;
+    explanation: string;
+    topic: string;
+  }>;
+  topicsToReview: string[];
+  recommendations: string[];
+}
