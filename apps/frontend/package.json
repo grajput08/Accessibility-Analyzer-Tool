@@ -13,7 +13,7 @@
     "lint:fix": "eslint . --fix"
   },
   "devDependencies": {
-    "@nuxt/devtools": "latest",
+    "@nuxt/devtools": "^1.0.0",
     "@nuxt/eslint-config": "^0.2.0",
     "@nuxtjs/tailwindcss": "^6.10.0",
     "@types/node": "^20.0.0",
@@ -22,10 +22,8 @@
     "sass": "^1.69.0"
   },
   "dependencies": {
-    "@floating-ui/vue": "^1.1.6",
     "@pinia/nuxt": "^0.5.1",
-    "@vueuse/components": "^13.4.0",
-    "pinia": "^2.1.7",
-    "v-tooltip": "3.0.0-beta.20"
+    "@vueuse/core": "^11.0.0",
+    "pinia": "^2.1.7"
   }
 }

@@ -13,6 +13,27 @@ export interface AccessibilityAnalysisRequest {
   };
 }
 
+export interface CodeFix {
+  description: string;
+  beforeCode: string;
+  afterCode: string;
+  explanation: string;
+}
+
+export interface Suggestion {
+  title: string;
+  description: string;
+  priority: 'high' | 'medium' | 'low';
+  example?: string;
+}
+
+export interface IssueDetails {
+  impact: string;
+  wcagGuideline: string;
+  affectedUsers: string[];
+  severity: 'critical' | 'high' | 'medium' | 'low';
+}
+
 export interface Pa11yIssue {
   code: string;
   context: string;
@@ -20,6 +41,11 @@ export interface Pa11yIssue {
   selector: string;
   type: 'error' | 'warning' | 'notice';
   runnerExtras?: Record<string, any>;
+  explanation?: string;
+  fix?: string;
+  details?: IssueDetails;
+  suggestions?: Suggestion[];
+  codeFixes?: CodeFix[];
 }
 
 export interface AccessibilityAnalysisResponse {
@@ -33,6 +59,7 @@ export interface AccessibilityAnalysisResponse {
       notices: number;
     };
   };
+  aimScore: number;
   timestamp: string;
 }
 
