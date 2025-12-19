@@ -367,20 +367,47 @@
         </div>
 
         <!-- Submit Button -->
-        <div class="card bg-primary-50 border-2 border-primary-200">
-          <div class="flex flex-col sm:flex-row items-center justify-between">
-            <div class="mb-4 sm:mb-0">
-              <p class="text-sm text-gray-600">
-                Progress: {{ answeredCount }}/{{ quiz.questions.length }}
-                questions answered
+        <div
+          class="card bg-gradient-to-r from-primary-50 to-accent-50 border-2 border-primary-300 shadow-lg"
+        >
+          <div
+            class="flex flex-col sm:flex-row items-center justify-between gap-4"
+          >
+            <div class="flex-1">
+              <p class="text-sm font-medium text-gray-700 mb-1">
+                Quiz Progress
+              </p>
+              <div class="flex items-center gap-2">
+                <div
+                  class="flex-1 bg-gray-200 rounded-full h-2.5 overflow-hidden"
+                >
+                  <div
+                    class="bg-gradient-to-r from-primary-500 to-accent-500 h-full transition-all duration-300 rounded-full"
+                    :style="{
+                      width: `${(answeredCount / quiz.questions.length) * 100}%`,
+                    }"
+                  ></div>
+                </div>
+                <span
+                  class="text-sm font-semibold text-gray-700 min-w-[80px] text-right"
+                >
+                  {{ answeredCount }}/{{ quiz.questions.length }}
+                </span>
+              </div>
+              <p
+                v-if="answeredCount < quiz.questions.length"
+                class="text-xs text-gray-500 mt-2"
+              >
+                Please answer all questions before submitting
               </p>
             </div>
             <button
               @click="submitQuiz"
               :disabled="answeredCount < quiz.questions.length || isEvaluating"
-              class="btn-primary disabled:opacity-50 disabled:cursor-not-allowed"
+              class="btn-primary inline-flex items-center justify-center px-8 py-3 text-base font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none disabled:hover:shadow-lg min-w-[160px]"
             >
               <svg
+                v-if="!isEvaluating"
                 class="w-5 h-5 mr-2"
                 fill="none"
                 stroke="currentColor"
@@ -393,7 +420,21 @@
                   d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
                 ></path>
               </svg>
-              Submit Quiz
+              <svg
+                v-else
+                class="w-5 h-5 mr-2 animate-spin"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+                ></path>
+              </svg>
+              {{ isEvaluating ? 'Submitting...' : 'Submit Quiz' }}
             </button>
           </div>
         </div>
